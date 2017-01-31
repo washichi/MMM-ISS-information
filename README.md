@@ -5,7 +5,6 @@ Magic Mirror Module to display ISS current location
 
 To use this module, add it to the modules array in the `config/config.js` file:
 ````javascript
-modules: [
 	{
 		module: 'MMM-ISS-current-location',
 		position: 'top_bar',	// This can be any of the regions.
@@ -15,10 +14,9 @@ modules: [
 			// See 'Configuration options' for more information.
 		}
 	}
-]
 ````
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clonehttps://github.com/washichi/MMM-ISS-current-location.git`. A new folder will appear.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/washichi/MMM-ISS-current-location.git`. A new folder will appear.
 
 
 ## Configuration options

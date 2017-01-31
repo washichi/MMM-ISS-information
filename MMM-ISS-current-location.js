@@ -12,7 +12,7 @@ Module.register("ISS-current-location",{
 
 	// Default module config.
 	defaults: {
-		initialLoadDelay: 0, // 0 seconds delay
+		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 
 		//opennotify parameters
@@ -34,10 +34,10 @@ Module.register("ISS-current-location",{
 	start: function() {
 		Log.info("Starting module: " + this.name);
 		this.scheduleUpdate(this.config.initialLoadDelay);
-		this.lat = null;
-		this.lon = null;
+		this.latitude = null;
+		this.longitude = null;
 		this.timestamp = null;
-		this.message = null;
+		this.message = "test";
 	},
 
 
@@ -45,7 +45,7 @@ Module.register("ISS-current-location",{
 	getDom: function() {
 		var wrapper = document.createElement("div");
 		// create a table for each row
-		//fill each row with the pass data
+		//fill each row with the data
 		wrapper.innerHTML = this.message;
 		return wrapper;
 	},
@@ -71,15 +71,16 @@ Module.register("ISS-current-location",{
 	 * Calls processWeather on succesfull response.
 	 */
 	updateISS: function() {
-		var url = this.apiBase;
+		var self = this;
+		var url = self.apiBase;
 		var opennotifyRequest = new XMLHttpRequest();
 		opennotifyRequest.open("GET", url, true);
 		opennotifyRequest.onreadystatechange = function() {
-			this.lat = opennotifyRequest.iss_position.latitude;
-			this.lon = opennotifyRequest.iss_position.longitude;
-			this.timestamp = opennotifyRequest.timestamp;
-			this.message = opennotifyRequest.message;
-			this.updateDom();
+			self.latitude = this.iss_position.latitude;
+			self.longitude = this.iss_position.longitude;
+			self.timestamp = this.timestamp;
+			self.message = this.message;
+			self.updateDom();
 		};
 	opennotifyRequest.send();
 	}		
