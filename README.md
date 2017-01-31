@@ -17,7 +17,9 @@ modules: [
 	}
 ]
 ````
-#This 
+## Installation
+1. Navigate into your MagicMirror's `modules` folder and execute `git clonehttps://github.com/washichi/MMM-ISS-current-location.git`. A new folder will appear.
+
 
 ## Configuration options
 as described in the OpenNotify documentation: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
