@@ -14,7 +14,8 @@ Module.register("ISS-current-location",{
 	defaults: {
 		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
-
+		updateInterval: 10000, // every 10 seconds
+		header: "test",
 		//opennotify parameters
 		apiBase: "http://api.open-notify.org/iss-now.json?",
 	},
@@ -48,6 +49,11 @@ Module.register("ISS-current-location",{
 		//fill each row with the data
 		wrapper.innerHTML = this.message;
 		return wrapper;
+	},
+
+	// Override getHeader method.
+	getHeader: function() {
+		return this.header;
 	},
 
 	/* scheduleUpdate()
