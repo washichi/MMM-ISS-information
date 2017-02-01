@@ -2,9 +2,10 @@
  /* global Module */
 
 /* Magic Mirror
- * Module: opennotifyISS
+ * Module: ISS-current-location
  *
- * By Michael Teeuw http://michaelteeuw.nl
+ * Module for the Magic Mirror created by Michael Teeuw http://michaelteeuw.nl
+ * by Corne Roozemond http://lookintomylife.com
  * MIT Licensed.
  */
 
@@ -12,7 +13,7 @@ Module.register("ISS-current-location",{
 
 	// Default module config.
 	defaults: {
-		//initialLoadDelay: 2500, // 2.5 seconds delay
+		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 		updateInterval: 10000, // every 10 seconds
 		header: "test",
