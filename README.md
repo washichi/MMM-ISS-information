@@ -9,10 +9,6 @@ To use this module, add it to the modules array in the `config/config.js` file:
 		module: 'MMM-ISS-current-location',
 		position: 'top_bar',	// This can be any of the regions.
 		header: 'ISS current location'
-		config: {
-			// The config property is optional.
-			// See 'Configuration options' for more information.
-		}
 	}
 ````
 ## Installation
