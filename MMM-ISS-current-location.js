@@ -75,15 +75,19 @@ Module.register("MMM-ISS-current-location",{
 	 */
 	updateISS: function() {
 		var self = this;
-		var url = self.apiBase;
+		var url = self.config.apiBase;
 		var opennotifyRequest = new XMLHttpRequest();
 		opennotifyRequest.open("GET", url, true);
 		opennotifyRequest.onreadystatechange = function() {
-			self.latitude = this.iss_position.latitude;
-			self.longitude = this.iss_position.longitude;
-			self.timestamp = this.timestamp;
-			self.message = this.message;
-			self.updateDom();
+		if (this.readyState === 4) {
+			if (this.status === 200) {
+				var resp = JSON.parse(this.response);
+				this.latitude = resp.iss_position.latitude;
+				this.longitude = resp.iss_position.longitude;
+				this.timestamp = resp.timestamp;
+				this.message = resp.message;
+			}
+		}
 		};
 	opennotifyRequest.send();
 	}		
