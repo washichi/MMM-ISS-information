@@ -1,5 +1,4 @@
-
- /* global Module */
+/* global Module */
 
 /* Magic Mirror
  * Module: ISS-current-location
@@ -9,14 +8,13 @@
  * MIT Licensed.
  */
 
-Module.register("ISS-current-location",{
+Module.register("MMM-ISS-current-location",{
 
 	// Default module config.
 	defaults: {
 		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 		updateInterval: 10000, // every 10 seconds
-		header: "test",
 		//opennotify parameters
 		apiBase: "http://api.open-notify.org/iss-now.json?"
 	},
@@ -39,7 +37,7 @@ Module.register("ISS-current-location",{
 		this.latitude = null;
 		this.longitude = null;
 		this.timestamp = null;
-		this.message = "test";
+		this.message = null;
 		this.updateTimer = null;
 	},
 
@@ -53,16 +51,8 @@ Module.register("ISS-current-location",{
 		return wrapper;
 	},
 
-	// Override getHeader method.
-	getHeader: function() {
-		return this.header;
-	},
 
-	/* scheduleUpdate()
-	 * Schedule next update.
-	 *
-	 * argument delay number - Milliseconds before next update. If empty, this.config.updateInterval is used.
-	 */
+
 	scheduleUpdate: function(delay) {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
