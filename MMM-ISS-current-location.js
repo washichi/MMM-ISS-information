@@ -79,10 +79,10 @@ Module.register("MMM-ISS-current-location",{
 	updateISS: function() {
 		var url = this.config.apiBase;
 		var self = this;
-		var opennotifyRequest = new XMLHttpRequest();
-		opennotifyRequest.open("GET", url, true);
+		var issRequest = new XMLHttpRequest();
+		issRequest.open("GET", url, true);
 		this.message = "in updateISS";
-		opennotifyRequest.onreadystatechange = function() {
+		issRequest.onreadystatechange = function() {
 		self.message = "request status: "+ to.String(this.status); // not displayed
 		if (this.readyState === 4) {
 			if (this.status === 200) {
@@ -96,7 +96,7 @@ Module.register("MMM-ISS-current-location",{
 		}
 		};
 	//this.message = "end of request";
-	opennotifyRequest.send();
+	issRequest.send();
 	self.updateDom();
 	}		
 });
