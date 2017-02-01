@@ -38,7 +38,7 @@ Module.register("MMM-ISS-current-location",{
 		this.latitude = null;
 		this.longitude = null;
 		this.timestamp = null;
-		this.message = null;
+		this.message = "default message";
 		this.updateTimer = null;
 	},
 
@@ -52,6 +52,7 @@ Module.register("MMM-ISS-current-location",{
 		//wrapper.innerHTML = "this gets displayed";
 		wrapper.innerHTML = this.message; // this not
 		return wrapper;
+
 	},
 
 	// Override getHeader method.
@@ -80,17 +81,21 @@ Module.register("MMM-ISS-current-location",{
 		var self = this;
 		var opennotifyRequest = new XMLHttpRequest();
 		opennotifyRequest.open("GET", url, true);
+		this.message = "in updateISS";
 		opennotifyRequest.onreadystatechange = function() {
+		self.message = "request status: "+ to.String(this.status); // not displayed
 		if (this.readyState === 4) {
 			if (this.status === 200) {
 				var resp = JSON.parse(this.response);
-				this.latitude = resp.iss_position.latitude;
-				this.longitude = resp.iss_position.longitude;
-				this.timestamp = resp.timestamp;
-				this.message = resp.message;
+				self.latitude = resp.iss_position.latitude;
+				self.longitude = resp.iss_position.longitude;
+				self.timestamp = resp.timestamp;
+				self.message = resp.message;
+				self.message = "dit gebeurt niet";
 			}
 		}
 		};
 	opennotifyRequest.send();
+	self.updateDom();
 	}		
 });
