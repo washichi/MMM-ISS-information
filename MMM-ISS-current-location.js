@@ -12,12 +12,12 @@ Module.register("ISS-current-location",{
 
 	// Default module config.
 	defaults: {
-		initialLoadDelay: 2500, // 2.5 seconds delay
+		//initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 		updateInterval: 10000, // every 10 seconds
 		header: "test",
 		//opennotify parameters
-		apiBase: "http://api.open-notify.org/iss-now.json?",
+		apiBase: "http://api.open-notify.org/iss-now.json?"
 	},
 
 /*
