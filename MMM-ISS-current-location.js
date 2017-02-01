@@ -95,6 +95,7 @@ Module.register("MMM-ISS-current-location",{
 			}
 		}
 		};
+	//this.message = "end of request";
 	opennotifyRequest.send();
 	self.updateDom();
 	}		
