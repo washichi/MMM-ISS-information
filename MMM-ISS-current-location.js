@@ -15,16 +15,19 @@ Module.register("MMM-ISS-current-location",{
 		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 		updateInterval: 10000, // every 10 seconds
+		animationSpeed: 1000,
 		header: "ISS current location",
 		//opennotify parameters
 		apiBase: "http://api.open-notify.org/iss-now.json?"
 	},
 
-/*
+
 	// Define required scripts.
 	getScripts: function() {
 		return ["moment.js", "moment-timezone.js"];
 	},
+
+/*
 	// Define styles.
 	getStyles: function() {
 		return ["clock_styles.css"];
@@ -34,6 +37,7 @@ Module.register("MMM-ISS-current-location",{
 	// Define start sequence.
 	start: function() {
 		Log.info("Starting module: " + this.name);
+		moment.locale(config.language);
 		this.scheduleUpdate(this.config.initialLoadDelay);
 		this.latitude = null;
 		this.longitude = null;
@@ -81,22 +85,23 @@ Module.register("MMM-ISS-current-location",{
 		var self = this;
 		var issRequest = new XMLHttpRequest();
 		issRequest.open("GET", url, true);
-		this.message = "in updateISS";
 		issRequest.onreadystatechange = function() {
-		self.message = "request status: "+ to.String(this.status); // not displayed
+		Log.error("function entered, status:" + String(this.status));
 		if (this.readyState === 4) {
 			if (this.status === 200) {
 				var resp = JSON.parse(this.response);
+				Log.error("resp.message = " + String(resp.message));
+				Log.error("var to put resp in contains now: " + self.message);
 				self.latitude = resp.iss_position.latitude;
 				self.longitude = resp.iss_position.longitude;
 				self.timestamp = resp.timestamp;
-				self.message = resp.message;
-				self.message = "dit gebeurt niet";
+				self.message = String(resp.message);
 			}
+			self.show(self.config.animationSpeed, {lockString:this.identifier});
+			self.updateDom(self.config.animationSpeed);
+			self.scheduleUpdate(self.config.retryDelay);
 		}
 		};
-	//this.message = "end of request";
 	issRequest.send();
-	self.updateDom();
 	}		
 });
