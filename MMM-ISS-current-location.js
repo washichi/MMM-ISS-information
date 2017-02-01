@@ -48,7 +48,9 @@ Module.register("MMM-ISS-current-location",{
 		var wrapper = document.createElement("div");
 		// create a table for each row
 		//fill each row with the data
-		wrapper.innerHTML = this.message;
+
+		//wrapper.innerHTML = "this gets displayed";
+		wrapper.innerHTML = this.message; // this not
 		return wrapper;
 	},
 
@@ -74,8 +76,8 @@ Module.register("MMM-ISS-current-location",{
 	 * Calls processWeather on succesfull response.
 	 */
 	updateISS: function() {
+		var url = this.config.apiBase;
 		var self = this;
-		var url = self.config.apiBase;
 		var opennotifyRequest = new XMLHttpRequest();
 		opennotifyRequest.open("GET", url, true);
 		opennotifyRequest.onreadystatechange = function() {
