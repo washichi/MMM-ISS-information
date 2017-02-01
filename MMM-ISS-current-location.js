@@ -24,23 +24,22 @@ Module.register("MMM-ISS-current-location",{
 
 	// Define required scripts.
 	getScripts: function() {
-		return ["moment.js", "moment-timezone.js"];
+		return ["leaflet.js"];
 	},
 
-/*
+
 	// Define styles.
 	getStyles: function() {
-		return ["clock_styles.css"];
+		return ["leaflet.css"];
 	},
-*/
+
 
 	// Define start sequence.
 	start: function() {
 		Log.info("Starting module: " + this.name);
-		moment.locale(config.language);
 		this.scheduleUpdate(this.config.initialLoadDelay);
-		this.latitude = null;
-		this.longitude = null;
+		this.latitude = 52.37;
+		this.longitude = 4.89;
 		this.timestamp = null;
 		this.message = "default message";
 		this.updateTimer = null;
@@ -49,14 +48,42 @@ Module.register("MMM-ISS-current-location",{
 
 	// Override dom generator.
 	getDom: function() {
-		var wrapper = document.createElement("div");
-		// create a table for each row
-		//fill each row with the data
+/*
+		var table = document.createElement("table");
+		table.className = "small";
 
-		//wrapper.innerHTML = "this gets displayed";
-		wrapper.innerHTML = this.message; // this not
-		return wrapper;
+		var latitudeRow = document.createElement("tr");
+		table.appendChild(latitudeRow);
+		var latitudeCell = document.createElement("td");
+		latitudeCell.className = "latitude";
+		latitudeCell.innerHTML = "latitude: " + String(this.latitude);
+		latitudeRow.appendChild(latitudeCell);
 
+		var longitudeRow = document.createElement("tr");
+		table.appendChild(longitudeRow);
+		var longitudeCell = document.createElement("td");
+		longitudeCell.className = "longitude";
+		longitudeCell.innerHTML = "longitude: " + String(this.longitude);
+		longitudeRow.appendChild(longitudeCell);
+
+		var mapRow = document.createElement("tr");
+		table.appendChild(mapRow);
+		var mapCell = document.createElement("td");
+		var mapid = document.createElement("div");
+		mapid.innerHTML = map;
+		mapCell.appendChild(mapid);
+		mapRow.appendChild(mapCell);
+
+*/
+		var mapid = document.createElement("div");
+		mapid.innerHTML = map;
+		var map = L.map(mapid).setView([51.505, -0.09], 13);
+		//map.panTo([this.latitude, this.longitude], animate=true);
+		L.tileLayer('https://api.mapbox.com/styles/v1/washichi/ciynd8xjd00be2skeb3l96ncs/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2FzaGljaGkiLCJhIjoiY2l5bmN5OWZhMDAyeTJxcXFrbTBvM3ljaSJ9.2D2Nkf_YtxbPPiwCsXG0WA', {
+    	maxZoom: 13
+		}).addTo(map);
+
+		return mapid;
 	},
 
 	// Override getHeader method.
@@ -86,19 +113,16 @@ Module.register("MMM-ISS-current-location",{
 		var issRequest = new XMLHttpRequest();
 		issRequest.open("GET", url, true);
 		issRequest.onreadystatechange = function() {
-		Log.error("function entered, status:" + String(this.status));
 		if (this.readyState === 4) {
 			if (this.status === 200) {
 				var resp = JSON.parse(this.response);
-				Log.error("resp.message = " + String(resp.message));
-				Log.error("var to put resp in contains now: " + self.message);
 				self.latitude = resp.iss_position.latitude;
 				self.longitude = resp.iss_position.longitude;
 				self.timestamp = resp.timestamp;
-				self.message = String(resp.message);
+				self.message = resp.message;
 			}
 			self.show(self.config.animationSpeed, {lockString:this.identifier});
-			self.updateDom(self.config.animationSpeed);
+			self.updateDom();
 			self.scheduleUpdate(self.config.retryDelay);
 		}
 		};
