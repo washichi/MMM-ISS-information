@@ -39,6 +39,7 @@ Module.register("ISS-current-location",{
 		this.longitude = null;
 		this.timestamp = null;
 		this.message = "test";
+		this.updateTimer = null;
 	},
 
 
@@ -66,9 +67,10 @@ Module.register("ISS-current-location",{
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
 		}
-
-		setTimeout(function() {
-			this.updateISS();
+		var self = this;
+		clearTimeout(this.updateTimer);
+		this.updateTimer = setTimeout(function() {
+			self.updateISS();
 		}, nextLoad);
 	},
 
