@@ -41,7 +41,7 @@ Module.register("MMM-ISS-current-location",{
 		this.latitude = 52.37;
 		this.longitude = 4.89;
 		this.timestamp = null;
-		this.message = "default message";
+		this.message = null;
 		this.updateTimer = null;
 	},
 
@@ -79,10 +79,10 @@ Module.register("MMM-ISS-current-location",{
 		mapid.innerHTML = map;
 		mapid.style.height = "500px";
 		mapid.style.width = "500px";
-		var map = L.map(mapid).setView([51.505, -0.09], 4);
-		//map.panTo([this.latitude, this.longitude], animate=true);
+		var map = L.map(mapid).setView([51.505, -0.09], 13);
+		map.panTo([this.latitude, this.longitude], animate=true);
 		L.tileLayer('https://api.mapbox.com/styles/v1/washichi/ciynd8xjd00be2skeb3l96ncs/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2FzaGljaGkiLCJhIjoiY2l5bmN5OWZhMDAyeTJxcXFrbTBvM3ljaSJ9.2D2Nkf_YtxbPPiwCsXG0WA', {
-    	maxZoom: 13
+    	maxZoom: 18
 		}).addTo(map);
 
 		return mapid;
