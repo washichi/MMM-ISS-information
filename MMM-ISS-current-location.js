@@ -14,7 +14,7 @@ Module.register("MMM-ISS-current-location",{
 	defaults: {
 		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
-		updateInterval: 10000, // every 10 seconds
+		updateInterval: 60000, // every 60 seconds
 		animationSpeed: 1000,
 		header: "ISS current location",
 		//opennotify parameters
@@ -80,10 +80,26 @@ Module.register("MMM-ISS-current-location",{
 		mapid.style.height = "200px";
 		mapid.style.width = "400px";
 
-		var map = L.map(mapid).setView([51.505, -0.09], 1);
+		var map = L.map(mapid).setView([0, 0], 1);
 		setTimeout(function() {
     	map.invalidateSize();
-		}, 1000);
+		}, 1);
+
+		var ISSIcon = L.icon({
+	    iconUrl: 'http://www.open-notify.org/Open-Notify-API/map/ISSIcon.png',
+	    iconSize: [50, 30],
+	    iconAnchor: [25, 15],
+	    popupAnchor: [50, 25],
+	    shadowUrl: 'http://www.open-notify.org/Open-Notify-API/map/ISSIcon_shadow.png',
+	    shadowSize: [60, 40],
+	    shadowAnchor: [30, 15]
+		});
+		var iss = L.marker([0, 0], {icon: ISSIcon}).addTo(map);
+		var isscirc = L.circle([0,0], 2200e3, {color: "#c22", opacity: 0.3, weight:1, fillColor: "#c22", fillOpacity: 0.1}).addTo(map);
+
+
+        iss.setLatLng([this.latitude, this.longitude]);
+        isscirc.setLatLng([this.latitude, this.longitude]);
 		map.panTo([this.latitude, this.longitude], animate=true);
 		L.tileLayer('https://api.mapbox.com/styles/v1/washichi/ciynd8xjd00be2skeb3l96ncs/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2FzaGljaGkiLCJhIjoiY2l5bmN5OWZhMDAyeTJxcXFrbTBvM3ljaSJ9.2D2Nkf_YtxbPPiwCsXG0WA', {
     	maxZoom: 4
