@@ -15,7 +15,7 @@ Module.register("MMM-ISS-current-location",{
 		initialLoadDelay: 2500, // 2.5 seconds delay
 		retryDelay: 2500,
 		updateInterval: 60000, // every 60 seconds
-		animationSpeed: 1000,
+		animationSpeed: 1,
 		header: "ISS current location",
 		//opennotify parameters
 		apiBase: "http://api.open-notify.org/iss-now.json?"
@@ -95,11 +95,8 @@ Module.register("MMM-ISS-current-location",{
 	    shadowAnchor: [30, 15]
 		});
 		var iss = L.marker([0, 0], {icon: ISSIcon}).addTo(map);
-		var isscirc = L.circle([0,0], 2200e3, {color: "#c22", opacity: 0.3, weight:1, fillColor: "#c22", fillOpacity: 0.1}).addTo(map);
-
 
         iss.setLatLng([this.latitude, this.longitude]);
-        isscirc.setLatLng([this.latitude, this.longitude]);
 		map.panTo([this.latitude, this.longitude], animate=true);
 		L.tileLayer('https://api.mapbox.com/styles/v1/washichi/ciynd8xjd00be2skeb3l96ncs/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2FzaGljaGkiLCJhIjoiY2l5bmN5OWZhMDAyeTJxcXFrbTBvM3ljaSJ9.2D2Nkf_YtxbPPiwCsXG0WA', {
     	maxZoom: 4
