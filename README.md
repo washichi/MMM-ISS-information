@@ -16,10 +16,15 @@ To use this module, add it to the modules array in the `config/config.js` file:
 
 
 ## Configuration options
-as described in the OpenNotify documentation: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
-The following properties can be configured:
+based on the OpenNotify documentation: http://open-notify.org/Open-Notify-API/ISS-Location-Now/
 
 | Option            | Description
 | ----------------- | -----------
-| `to do`           | to do
+| `iss-map`         | *REQUIRED* <br><br> Shows an map with the realtime ISS position. <br><br> **Default value:** `true`
+| `iss_people`      | *REQUIRED* <br><br> Shows the number of people in space. <br><br> **Default value:** `true`
+| `iss_pass`        | *REQUIRED* <br><br> Shows the date+time of the next ISS pass above given coördinates. <br><br> **Default value:** `true`
+| `latitude`        | *OPTIONAL* <br><br> Latitude, used to display iss_pass. <br><br> **Default value:** `Amsterdam latitude`
+| `longitude`       | *OPTIONAL* <br><br> Latitude, used to display iss_pass. <br><br> **Default value:** `Amsterdam longitude`
+| `amount`          | *OPTIONAL* <br><br>amount of ISS passes that are listed. <br><br> **Default value:** `5`
+| `map_style`       | *OPTIONAL* <br><br>map style. <br><br> You can create your own style at [mapbox](https://www.mapbox.com/studio/styles)
 

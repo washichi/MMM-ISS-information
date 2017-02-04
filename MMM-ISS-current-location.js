@@ -80,19 +80,16 @@ Module.register("MMM-ISS-current-location",{
 		mapid.style.height = "200px";
 		mapid.style.width = "400px";
 
-		var map = L.map(mapid).setView([0, 0], 1);
+		var map = L.map(mapid, {attributionControl: false, zoomControl:false}).setView([0, 0], 1);
 		setTimeout(function() {
     	map.invalidateSize();
 		}, 1);
 
 		var ISSIcon = L.icon({
-	    iconUrl: 'http://www.open-notify.org/Open-Notify-API/map/ISSIcon.png',
+	    iconUrl: this.data.path + "iss4.png",
 	    iconSize: [50, 30],
 	    iconAnchor: [25, 15],
-	    popupAnchor: [50, 25],
-	    shadowUrl: 'http://www.open-notify.org/Open-Notify-API/map/ISSIcon_shadow.png',
-	    shadowSize: [60, 40],
-	    shadowAnchor: [30, 15]
+	    //popupAnchor: [50, 25],
 		});
 		var iss = L.marker([0, 0], {icon: ISSIcon}).addTo(map);
 
