@@ -96,7 +96,7 @@ Module.register("MMM-ISS-current-location",{
         iss.setLatLng([this.latitude, this.longitude]);
 		map.panTo([this.latitude, this.longitude], animate=true);
 		L.tileLayer('https://api.mapbox.com/styles/v1/washichi/ciynd8xjd00be2skeb3l96ncs/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoid2FzaGljaGkiLCJhIjoiY2l5bmN5OWZhMDAyeTJxcXFrbTBvM3ljaSJ9.2D2Nkf_YtxbPPiwCsXG0WA', {
-    	maxZoom: 4
+    	maxZoom: 15
 		}).addTo(map);
 		return mapid;
 	},
